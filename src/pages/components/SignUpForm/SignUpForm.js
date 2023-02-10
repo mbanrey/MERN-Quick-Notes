@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { signUp }  from '../../../utilities/users-service'
 
 export default class SignUpForm extends Component {
     // state is just a POJO
@@ -7,8 +8,7 @@ export default class SignUpForm extends Component {
         email: '',
         password: '',
         confirm: '',
-        error: '',
-        bool: true
+        error: ''
     }
 
     handleChange = (event) => {
@@ -22,9 +22,29 @@ export default class SignUpForm extends Component {
         // })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault()
-        alert(JSON.stringify(this.state))
+        // alert(JSON.stringify(this.state))
+        // try something if it works GREAT
+        try {
+            // taking the state and making a copy of the state and assigning it to formData var
+            const formData = {...this.state}
+            delete formData.error
+            delete formData.confirm
+            console.log(formData)
+
+            // wait for a response back from the server
+            const user = await signUp(formData)
+            // now logging the token
+            console.log(user)
+
+        } catch (error) {
+            console.error(error)
+            // if it doesn't error handle
+            this.setState({
+                error: 'Sign up failed  - Try again later'
+            })
+        }
     }
 
     render () {
