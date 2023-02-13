@@ -4,6 +4,7 @@ export default function OrderHistoryPage() {
 
     async function handleCheckToken() {
         checkToken()
+            .then(alert)
     }
 
     return (
