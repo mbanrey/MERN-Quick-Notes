@@ -36,7 +36,7 @@ export default class SignUpForm extends Component {
             // wait for a response back from the server
             const user = await signUp(formData)
             // now logging the token
-            console.log(user)
+            this.props.setUser(user)
 
         } catch (error) {
             console.error(error)
