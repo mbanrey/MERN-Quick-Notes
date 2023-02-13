@@ -48,3 +48,13 @@ export function getUser() {
         return null
     }
 }
+
+export function logOut() {
+    localStorage.removeItem('token')
+}
+
+export async function logIn(credentials) {
+   const token = await usersAPI.logIn(credentials)
+   localStorage.setItem('token', token)
+   return getUser()
+}
